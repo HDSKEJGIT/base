@@ -1,4 +1,4 @@
 
-rootProject.name = "core"
+rootProject.name = "base"
 include ':app'
 include ':core'
