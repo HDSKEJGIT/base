@@ -16,21 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.hds.core.R;
-import com.hds.core.http.HttpData;
 import com.hds.core.util.AppManager;
-import com.hjq.http.listener.OnHttpListener;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import okhttp3.Call;
 
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseImpl, BGASwipeBackHelper.Delegate, OnHttpListener<Object> {
+public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseImpl, BGASwipeBackHelper.Delegate {
     public CompositeDisposable mCompositeDisposable;
     protected P mPresenter;
 
     protected BGASwipeBackHelper mSwipeBackHelper;
-    public static final int NO_SET_CONTENT_VIEW = -1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +42,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         AppManager.getInstance().addActivity(this);
         beforeView();
 
-        if (layoutRes() != NO_SET_CONTENT_VIEW){
+        if (layoutRes() != null){
             setContentView(layoutRes());
         }
         setStatusBar();
@@ -77,7 +73,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     protected void beforeView(){}
 
-    protected abstract int layoutRes();
+    protected abstract View layoutRes();
 
     protected abstract void initView();
 
@@ -304,26 +300,26 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         AppManager.getInstance().removeActivity(this);
     }
 
-    @Override
-    public void onSucceed(Object result) {
-        if (result instanceof HttpData) {
-            Toast.makeText(this,((HttpData<?>) result).getMsg(),Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onFail(Exception e) {
-        Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStart(Call call) {
-
-    }
-
-
-    @Override
-    public void onEnd(Call call) {
-
-    }
+//    @Override
+//    public void onSucceed(Object result) {
+//        if (result instanceof HttpData) {
+//            Toast.makeText(this,((HttpData<?>) result).getMsg(),Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    @Override
+//    public void onFail(Exception e) {
+//        Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+//    }
+//
+//    @Override
+//    public void onStart(Call call) {
+//
+//    }
+//
+//
+//    @Override
+//    public void onEnd(Call call) {
+//
+//    }
 }
