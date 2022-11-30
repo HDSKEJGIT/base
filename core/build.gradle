@@ -41,6 +41,6 @@ dependencies {
     api 'com.github.bingoogolapple:BGASwipeBackLayout-Android:2.0.2'
 
     //沉侵式状态栏框架
-    implementation 'com.geyifeng.immersionbar:immersionbar:3.2.2'
+    api 'com.geyifeng.immersionbar:immersionbar:3.2.2'
 
 }
