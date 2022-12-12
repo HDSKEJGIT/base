@@ -22,9 +22,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     public BaseActivity mActivity;
 
+    private ViewGroup container;
+    private LayoutInflater inflater;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        this.container = container;
+        this.inflater = inflater;
         if (null == mCompositeDisposable) {
             mCompositeDisposable = new CompositeDisposable();
         }
@@ -32,7 +37,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
             mPresenter = createPresenter();
         }
         beforeView();
-        View view = inflater.inflate(layoutRes(), container, false);
+        View view = layoutRes();
         setStatusBar();
         initView();
         initData();
@@ -42,7 +47,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected void beforeView() {}
 
-    protected abstract int layoutRes();
+    protected abstract View layoutRes();
 
     protected abstract P createPresenter();
 
@@ -54,6 +59,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected void setStatusBar(){
         ImmersionBar.with(this).init();
+    }
+
+    protected ViewGroup getContainer(){
+        return container;
+    }
+
+    protected LayoutInflater getInflater(){
+        return inflater;
     }
 
     @Override
